@@ -1,0 +1,44 @@
+# Review03-ArrayList_LinkedList
+//给定一个带有头结点 head 的非空单链表，返回链表的中间结点。如果有两个中间结点，则返回第二个中间结点。
+
+//方法一：
+//解题思路：用链表长度除以2，取整得到步数midLen（走几步）
+public ListNode middleNode(ListNode head){
+    ListNode node=head;
+    int len=getLength(head);
+    int midLen=len/2;
+    for(int i=0;i<midLen;i++){
+        node=node.next;
+    }
+    return node;
+}
+
+private int getLength(ListNode head) {
+    ListNode cur=head;
+    int len=0;
+    for(cur=head;cur!=null;cur=cur.next){
+        len++;
+    }
+    return len;
+}
+=====================================================================================================================
+//方法二：
+public ListNode middleNode2(ListNode head){
+    //（面试官可能更希望我们写出这种代码，相比上一个，这个的思想比较独特）
+    //解题思路：1、假如有两个块，块1走一步，块2走一步，块1再走一步
+    //          2、继续循环执行上一步骤（也就是在一次循环里，块1走两步，块2走一步）
+    //          3、最终不管链表有奇数还是偶数个结点，这个代码都符合题意
+    ListNode fast = head;
+    ListNode slow = head;
+
+    while (fast != null) {
+        fast = fast.next;
+        if (fast == null) {
+            break;
+        }
+        slow = slow.next;
+        fast = fast.next;
+    }
+
+    return slow;
+}
