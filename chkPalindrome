@@ -1,0 +1,54 @@
+# Review03-ArrayList_LinkedList
+
+//链表的回文结构。
+
+//给定一个链表的头指针A，请返回一个boolean值，代表其是否为回文结构。
+//保证链表长度小于等于900
+public ListNode getMid(ListNode head) {
+    ListNode fast = head;
+    ListNode slow = head;
+
+    while (fast != null) {
+        fast = fast.next;
+        if (fast == null) {
+            break;
+        }
+        fast = fast.next;
+        slow = slow.next;
+    }
+
+    return slow;
+}
+
+public ListNode reverse(ListNode head) {
+    ListNode result = null;
+    ListNode cur = head;
+    while (cur != null) {
+        ListNode next = cur.next;
+
+        cur.next = result;
+        result = cur;
+
+        cur = next;
+    }
+
+    return result;
+}
+
+public boolean chkPalindrome(ListNode A) {
+    ListNode mid = getMid(A);//先返回链表的中间结点
+    ListNode h2 = reverse(mid);//逆置链表后一半的结点，并将其放入新的链表
+    ListNode n1 = A;
+    ListNode n2 = h2;
+    //下面开始进行比较两个链表的元素是否相同
+    while (n1 != null && n2 != null) {
+        if (n1.val != n2.val) {
+            return false;
+        }
+
+        n1 = n1.next;
+        n2 = n2.next;
+    }
+
+    return true;
+}
