@@ -1,0 +1,41 @@
+# Review03-ArrayList_LinkedList
+
+//解题思路：1、双指针第一次相遇：设两指针 fast，slow 指向链表头部head，fast轮走2步，slow 每轮走1步；
+             第一种结果： fast 指针走过链表末端，说明链表无环，直接返回 null;
+             （TIPS: 若有环，两指针一定会相遇。因为每走 1轮，
+               fast 与 slow 的间距 +1，fast 终会追上 slow;)
+             第二种结果： 当fast == slow时， 两指针在环中 第一次相遇 。
+//         2、双指针第二次相遇：slow指针位置不变 ，将fast指针重新指向链表头部节点 ;slow和fast同时每轮向前走 1步；
+              (TIPS：最终第二次相遇，此时两指针重合，并同时指向链表环入口 。）
+//         3、 返回slow指针指向的节点。
+
+public class Solution {
+   public ListNode detectCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        // fast 遇到 null，表示不带环，返回 null
+        // fast == slow，表示遇到相遇点了
+        do {
+            if (fast == null) {
+                return null;
+            }
+            fast = fast.next;
+            if (fast == null) {
+                return null;
+            }
+            fast = fast.next;
+            slow = slow.next;
+        } while (fast != slow);
+        // 求相遇点
+        // 如果快的遇到 null，表示没有环，直接返回 null
+        // 相遇点出发 + 起点出发，最终相遇
+        ListNode p = head;
+        ListNode q = slow;
+        while (p != q) {
+            p = p.next;
+            q = q.next;
+        }
+        
+        return p;
+    }
+}
