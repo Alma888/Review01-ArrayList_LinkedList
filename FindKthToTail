@@ -18,6 +18,11 @@ public ListNode FindKthToTail(ListNode head,int k){
     return node;
 
 }
+
+
+——————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————
+
+
 //方法二：(双引用去遍历)
 public ListNode FindKthToTail2(ListNode head,int k){
     ListNode front=head;
